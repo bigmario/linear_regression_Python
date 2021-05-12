@@ -25,8 +25,8 @@ def plot_regresion(X, Y, b):
     plt.plot(X, prediccion_Y, color='r')
 
     #leyenda
-    plt.xlabel('X Independiente')
-    plt.ylabel('Y Dependiente')
+    plt.xlabel('X Independiente (Dominio)')
+    plt.ylabel('Y Dependiente (Rango / Imagen)')
 
     plt.show()
     
@@ -37,7 +37,7 @@ def main():
 
     b = estimate_b0_b1(X,Y)
 
-    print('Ĺos valores de b0 = {} y b1 = {}'.format(b[0], b[1]))
+    print(f'Ĺos valores de b0 = {b[0]} y b1 = {b[1]}')
 
     plot_regresion(X,Y,b)
 
