@@ -1,3 +1,7 @@
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
+
 import pandas as pd # Manejo de datos
 import seaborn as sns # Creación de gráficas y visualización de datos
 import numpy as np
@@ -32,11 +36,21 @@ def plot_regresion(data, X, Y, b):
     
 
 def main():
+    reg = LinearRegression()
+    reg.fit
+    
     df = pd.read_csv('./studentsperformance.csv')
     print(df.head())
 
-    X = df['reading score']
-    Y = df['writing score']
+    #Dividir los datos para entrenamiento y prueba
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
+    
+    #cargar elmodelo de regresion lineal
+    reg = LinearRegression()
+    reg.fit
+
+    X = df['reading score'].values
+    Y = df['writing score'].values
 
     b = estimate_b0_b1(X,Y)
 
