@@ -1,6 +1,6 @@
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
-
+from sklearn.metrics import mean_squared_error
 
 import pandas as pd # Manejo de datos
 import seaborn as sns # Creación de gráficas y visualización de datos
@@ -38,7 +38,7 @@ def plot_regresion(data, X, Y, b):
 def main():
 
     df = pd.read_csv('./studentsperformance.csv')
-    print(df.head())
+    #print(df.head())
 
     X = df['reading score'].values
     Y = df['writing score'].values
@@ -51,19 +51,29 @@ def main():
     #cargar elmodelo de regresion lineal
     reg = LinearRegression()
     reg.fit(X_train, Y_train)
-
     
+    x_flat = X_train.flatten()
 
-    b = estimate_b0_b1(X,Y)
+    y_hat = reg.predict(X_train)
+
+    sns.scatterplot(x=x_flat, y=Y_train)
+    sns.lineplot(x=x_flat, y=y_hat, color='r')
+
+    y_pred = reg.predict(X_test)
+
+    #calculo el error caudratico medio
+    print(mean_squared_error(Y_test, y_pred))
 
     print('La pendiente es: ', reg.coef_)
     print('El bias es: ', reg.intercept_)
     print('Coeficiente de determinacion: ', reg.score(X_train, Y_train))
+    
+    value = pd.DataFrame({'Actual test': Y_test.flatten(), 'predict':y_pred.flatten()})
+    print()
+    print(value)
+    print('error caudratico medio: ',mean_squared_error(Y_test, y_pred))
 
-
-    #print(f'Ĺos valores de b0 = {b[0]} y b1 = {b[1]}')
-
-    #plot_regresion(df, X, Y, b)
+    plt.show()
 
 if __name__ == '__main__':
     main()
