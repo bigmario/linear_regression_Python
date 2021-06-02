@@ -49,6 +49,8 @@ def main():
     print(value)
     print('error caudratico medio: ',mean_squared_error(Y_test, y_pred))
 
+    plt.show()
+
 if __name__ == '__main__':
     main()
 
